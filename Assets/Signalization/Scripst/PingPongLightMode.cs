@@ -9,7 +9,7 @@ public class PingPongLightMode : MonoBehaviour
         _light = GetComponent<Light>();
     }
 
-    void Update()
+   private void Update()
     {
         _light.intensity = Mathf.PingPong(Time.time * 2, 1);
     }
