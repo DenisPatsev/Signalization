@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundIntensityReducer : MonoBehaviour
@@ -11,13 +12,17 @@ public class SoundIntensityReducer : MonoBehaviour
     private void Start()
     {
         _signalizationSound = GetComponent<AudioSource>();
-        _duration = 3;
-       _currentVolume = _signalizationSound.volume;
+        _currentVolume = _signalizationSound.volume;
     }
 
     public void Update()
     {
         ReduceVolume();
+    }
+
+    public void SetDuration(float value)
+    {
+        _duration = value;
     }
 
     private void ReduceVolume()

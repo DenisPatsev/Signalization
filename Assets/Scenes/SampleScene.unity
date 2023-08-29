@@ -643,6 +643,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0a9bfb4b5f28174884e89dd76563ae8, type: 3}
+--- !u!114 &1546958493 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+  m_PrefabInstance: {fileID: 6574912239000408625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 133cdfd00dfcd0c4bad124a57be6076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1798722077 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ff02a0a00ab750f48b09459b1cafd1b8, type: 3}
@@ -850,6 +861,34 @@ PrefabInstance:
     - target: {fileID: 5554733190572074253, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _duration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _invasion.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _invasion.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _invasion.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _invasion.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1546958493}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _invasion.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574912240513033892, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
+      propertyPath: _invasion.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f830389cfde3fe7478411f31e3dc1632, type: 3}
