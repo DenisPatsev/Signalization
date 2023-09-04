@@ -5,19 +5,20 @@ using UnityEngine;
 public class Detector : MonoBehaviour
 {
     private AudioSource _signalizationSound;
+    private VolumeChanger _volumeChanger;
 
     private void Start()
     {
         _signalizationSound = GetComponent<AudioSource>();
+        _volumeChanger = gameObject.GetComponent<VolumeChanger>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent<Player>(out Player player))
         {
-            Debug.Log("Игрок Вошел");
-            gameObject.GetComponent<VolumeChanger>().ResetRunningTime();
-            gameObject.GetComponent<VolumeChanger>().SetInvasionIndicator(true);
+            _volumeChanger.ResetRunningTime();
+            _volumeChanger.SetInvasionIndicator(true);
         }
     }
 
@@ -25,10 +26,9 @@ public class Detector : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Player>(out Player player))
         {
-            Debug.Log("Игрок Вышел");
-            gameObject.GetComponent<VolumeChanger>().ResetRunningTime();
-            gameObject.GetComponent<VolumeChanger>().SetCurrentVolume(_signalizationSound.volume);
-            gameObject.GetComponent<VolumeChanger>().SetInvasionIndicator(false);
+            _volumeChanger.ResetRunningTime();
+            _volumeChanger.SetCurrentVolume(_signalizationSound.volume);
+            _volumeChanger.SetInvasionIndicator(false);
         }
     }
 }
