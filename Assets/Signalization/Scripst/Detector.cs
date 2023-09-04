@@ -4,36 +4,31 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
-    [SerializeField] float _duration;
     private AudioSource _signalizationSound;
-
-    private float _runningTime;
 
     private void Start()
     {
         _signalizationSound = GetComponent<AudioSource>();
-        _signalizationSound.Play();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject.GetComponent<SoundIntensityReducer>());
-
-        if (other.TryGetComponent<Player>(out Player player))
+        if (other.gameObject.TryGetComponent<Player>(out Player player))
         {
-            _runningTime += Time.deltaTime;
-            float normalizedTime = _runningTime / _duration;
-
-            _signalizationSound.volume = Mathf.MoveTowards(0, 1, normalizedTime);
+            Debug.Log("Игрок Вошел");
+            gameObject.GetComponent<VolumeChanger>().ResetRunningTime();
+            gameObject.GetComponent<VolumeChanger>().SetInvasionIndicator(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<Player>(out Player player))
+        if (other.gameObject.TryGetComponent<Player>(out Player player))
         {
-            gameObject.AddComponent<SoundIntensityReducer>().SetDuration(_duration);
-            _runningTime = 0;
+            Debug.Log("Игрок Вышел");
+            gameObject.GetComponent<VolumeChanger>().ResetRunningTime();
+            gameObject.GetComponent<VolumeChanger>().SetCurrentVolume(_signalizationSound.volume);
+            gameObject.GetComponent<VolumeChanger>().SetInvasionIndicator(false);
         }
     }
 }
