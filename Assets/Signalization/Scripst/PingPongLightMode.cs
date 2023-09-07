@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PingPongLightMode : MonoBehaviour
 {
+    [SerializeField] private float _speed;
+    [SerializeField] private float _lenght;
+
     private Light _light;
 
     private void Start()
@@ -13,6 +16,6 @@ public class PingPongLightMode : MonoBehaviour
 
     private void Update()
     {
-        _light.intensity = Mathf.PingPong(Time.time * 2, 1);
+        _light.intensity = Mathf.PingPong(Time.time * _speed, _lenght);
     }
 }
