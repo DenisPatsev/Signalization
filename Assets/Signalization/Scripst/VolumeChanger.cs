@@ -11,44 +11,11 @@ public class VolumeChanger : MonoBehaviour
 
     private float _runningTime;
     private float _currentVolume;
-    private bool _isEntered;
-    private float _minimalVolume;
-    private float _maximalVolume;
-    private float _correctingVolumeStep;
 
     private void Start()
     {
         _signalizationSound = GetComponent<AudioSource>();
         _signalizationSound.Play();
-        _minimalVolume = 0;
-        _maximalVolume = 1;
-        _correctingVolumeStep = 0.01f;
-    }
-
-    private void Update()
-    {
-        if (_signalizationSound.volume > _minimalVolume && _signalizationSound.volume < _maximalVolume)
-        {
-            StartCoroutine(ChangePlayCondition());
-        }
-        else
-        {
-            StopCoroutine(ChangePlayCondition());
-        }
-    }
-
-    public void SetInvasionIndicator(bool isEntered)
-    {
-        _isEntered = isEntered;
-
-        if (_isEntered == true)
-        {
-            _signalizationSound.volume += _correctingVolumeStep;
-        }
-        else
-        {
-            _signalizationSound.volume -= _correctingVolumeStep;
-        }
     }
 
     public void ResetRunningTime()
@@ -56,44 +23,50 @@ public class VolumeChanger : MonoBehaviour
         _runningTime = 0;
     }
 
-    public void SetCurrentVolume(float currentVolume)
+    public void SetCurrentVolume()
     {
-        _currentVolume = currentVolume;
+        _currentVolume = _signalizationSound.volume;
     }
 
-    private void ReduceVolume()
+    public void StartIncreasing()
     {
-        if (_runningTime < _duration)
-        {
-            _runningTime += Time.deltaTime;
-            float normalizedTime = _runningTime / _duration;
-
-            _signalizationSound.volume = Mathf.MoveTowards(_currentVolume, 0, normalizedTime);
-        }
+        StartCoroutine(IncreaseVolume());
     }
 
-    private void IncreaseVolume()
+    public void StartReducing()
     {
-        if (_runningTime < _duration)
+        StartCoroutine(ReduceVolume());
+    }
+
+    private IEnumerator IncreaseVolume()
+    {
+        var waitingTime = new WaitForEndOfFrame();
+
+        while (_runningTime < _duration)
         {
             _runningTime += Time.deltaTime;
             float normalizedTime = _runningTime / _duration;
 
             _signalizationSound.volume = Mathf.MoveTowards(0, 1, normalizedTime);
+            yield return waitingTime;
         }
+
+        StopCoroutine(IncreaseVolume());
     }
 
-    private IEnumerator ChangePlayCondition()
+    private IEnumerator ReduceVolume()
     {
-        if (_isEntered == false)
+        var waitingTime = new WaitForEndOfFrame();
+
+        while (_runningTime < _duration)
         {
-            ReduceVolume();
-        }
-        else
-        {
-            IncreaseVolume();
+            _runningTime += Time.deltaTime;
+            float normalizedTime = _runningTime / _duration;
+
+            _signalizationSound.volume = Mathf.MoveTowards(_currentVolume, 0, normalizedTime);
+            yield return waitingTime;
         }
 
-        yield return null;
+        StopCoroutine(ReduceVolume());
     }
 }
