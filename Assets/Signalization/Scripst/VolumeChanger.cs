@@ -28,17 +28,12 @@ public class VolumeChanger : MonoBehaviour
         _currentVolume = _signalizationSound.volume;
     }
 
-    public void StartIncreasing()
+    public void StartAlteration(float maximalValue)
     {
-        StartCoroutine(IncreaseVolume());
+        StartCoroutine(AlterVolume(maximalValue));
     }
 
-    public void StartReducing()
-    {
-        StartCoroutine(ReduceVolume());
-    }
-
-    private IEnumerator IncreaseVolume()
+    public IEnumerator AlterVolume(float maximalValue)
     {
         var waitingTime = new WaitForEndOfFrame();
 
@@ -47,26 +42,10 @@ public class VolumeChanger : MonoBehaviour
             _runningTime += Time.deltaTime;
             float normalizedTime = _runningTime / _duration;
 
-            _signalizationSound.volume = Mathf.MoveTowards(0, 1, normalizedTime);
+            _signalizationSound.volume = Mathf.MoveTowards(_currentVolume, maximalValue, normalizedTime);
             yield return waitingTime;
         }
 
-        StopCoroutine(IncreaseVolume());
-    }
-
-    private IEnumerator ReduceVolume()
-    {
-        var waitingTime = new WaitForEndOfFrame();
-
-        while (_runningTime < _duration)
-        {
-            _runningTime += Time.deltaTime;
-            float normalizedTime = _runningTime / _duration;
-
-            _signalizationSound.volume = Mathf.MoveTowards(_currentVolume, 0, normalizedTime);
-            yield return waitingTime;
-        }
-
-        StopCoroutine(ReduceVolume());
+        StopCoroutine(AlterVolume(maximalValue));
     }
 }
