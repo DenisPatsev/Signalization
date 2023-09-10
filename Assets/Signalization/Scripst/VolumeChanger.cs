@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class VolumeChanger : MonoBehaviour
 {
-    [SerializeField] float _duration;
+    [SerializeField] private float _duration;
 
     private AudioSource _signalizationSound;
 
@@ -28,12 +28,12 @@ public class VolumeChanger : MonoBehaviour
         _currentVolume = _signalizationSound.volume;
     }
 
-    public void StartAlteration(float maximalValue)
+    public void StartAlteration(float endValue)
     {
-        StartCoroutine(AlterVolume(maximalValue));
+        StartCoroutine(AlterVolume(endValue));
     }
 
-    public IEnumerator AlterVolume(float maximalValue)
+    public IEnumerator AlterVolume(float endValue)
     {
         var waitingTime = new WaitForEndOfFrame();
 
@@ -42,10 +42,8 @@ public class VolumeChanger : MonoBehaviour
             _runningTime += Time.deltaTime;
             float normalizedTime = _runningTime / _duration;
 
-            _signalizationSound.volume = Mathf.MoveTowards(_currentVolume, maximalValue, normalizedTime);
+            _signalizationSound.volume = Mathf.MoveTowards(_currentVolume, endValue, normalizedTime);
             yield return waitingTime;
         }
-
-        StopCoroutine(AlterVolume(maximalValue));
     }
 }
